@@ -5,7 +5,7 @@ import { liveDataPropsArray } from "../../constants";
 export default function Home() {
   return (
     <Layout>
-      <div className="pt-10 pb-10 bg-gradient-to-r from-black via-gray-800 to-gray-700 min-h-screen grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2">
+      <div className="bg-white bg-gradient-to-r from-gray-100 via-gary-100 to-gray-100 pt-10 pb-10 min-h-screen grid grid-cols-1 gap-4 md:grid-cols-1 lg:grid-cols-2 dark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-700">
         {liveDataPropsArray.map((index, item) => 
           <CardData 
             id={String(item)}

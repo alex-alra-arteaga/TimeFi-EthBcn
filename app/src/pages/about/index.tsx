@@ -6,15 +6,15 @@ const About: NextPage = () => {
 
   const router = useRouter()
   return (
-    <div className="dark:from-black dark:via-gray-800 dark:to-gray-700 bg-white bg-gradient-to-r from-blue-500 via-blue-700 to-blue-900">
+    <div className="dark:from-black dark:via-gray-800 dark:to-gray-700 bg-white bg-gradient-to-r from-gray-100 via-gary-100 to-gray-100">
     <Layout>
       <section className="body-font min-h-screen transition-colors duration-500">
         <div className="container mx-auto px-5 py-24">
         <div className="mb-20 flex w-full flex-col flex-wrap items-center text-center">
-        <h1 className="title-font mb-2 text-2xl font-medium text-white sm:text-3xl">
+        <h1 className="title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl dark:text-white">
               Puntos claves de TimeFi
             </h1>
-            <p className="w-full leading-relaxed text-white text-opacity-80 lg:w-1/2 dark:text-gray-300">
+            <p className="w-full leading-relaxed text-black text-opacity-80 lg:w-1/2 dark:text-gray-300">
               Descubre en que nos diferenciamos de otras plataformas y que valor
               agregado te ofrecemos.
             </p>
@@ -35,10 +35,10 @@ const About: NextPage = () => {
                     <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                   </svg>
                 </div>
-                <h2 className="title-font mb-2 text-lg font-medium text-white">
+                <h2 className="title-font mb-2 text-lg font-medium text-black dark:text-white">
                   ERC20 representando tu tiempo
                 </h2>
-                <p className="text-base leading-relaxed text-gray-300">
+                <p className="text-base leading-relaxed text-dark dark:text-white">
                   En TimeFi, tu tiempo se convierte en un activo tangible
                   mediante la creación de un token ERC20. Este token está
                   vinculado a las horas que estás dispuesto a ofrecer,
@@ -64,10 +64,10 @@ const About: NextPage = () => {
                     <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
                   </svg>
                 </div>
-                <h2 className="title-font mb-2 text-lg font-medium text-white">
+                <h2 className="title-font mb-2 text-lg font-medium  text-black dark:text-white">
                   Mejora en el Flujo de Efectivo
                 </h2>
-                <p className="text-base leading-relaxed text-gray-300">
+                <p className="text-base leading-relaxed dark:text-gray-300 text-black">
                   Nos enfocamos en solucionar los retrasos en los pagos que
                   afectan a consultores y profesionales, asegurando un flujo de
                   efectivo regular y reduciendo el riesgo de impago. No dependas
@@ -91,10 +91,10 @@ const About: NextPage = () => {
                     <circle cx="12" cy="7" r="4"></circle>
                   </svg>
                 </div>
-                <h2 className="title-font mb-2 text-lg font-medium text-white">
+                <h2 className="title-font mb-2 text-lg font-medium  text-black dark:text-white">
                   Interacción de Fan a Ídolo como nunca antes
                 </h2>
-                <p className="text-base leading-relaxed text-gray-300">
+                <p className="text-base leading-relaxed dark:text-white text-black">
                   Abordamos la falta de interacciones significativas en las
                   redes sociales, solucionamos problemas en la programación y
                   flujo de efectivo en consultas profesionales, y promovemos un
@@ -117,10 +117,10 @@ const About: NextPage = () => {
                     <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"></path>
                   </svg>
                 </div>
-                <h2 className="title-font mb-2 text-lg font-medium text-white">
+                <h2 className="title-font mb-2 text-lg font-medium dark:text-white text-dark">
                   Ponemos fin a la programación Ineficiente
                 </h2>
-                <p className="text-base leading-relaxed text-gray-300">
+                <p className="text-base leading-relaxed dark:text-gray-300 text-dark">
                   Atacamos la falta de transparencia y las complicaciones en la
                   programación actual, facilitando la reserva de horarios para
                   clientes y la gestión de cancelaciones para consultores.
@@ -142,10 +142,10 @@ const About: NextPage = () => {
                     <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
                   </svg>
                 </div>
-                <h2 className="title-font mb-2 text-lg font-medium text-white">
+                <h2 className="title-font mb-2 text-lg font-medium dark:text-white text-dark">
                   Tecnología sofisticada, experiencia sin complicaciones
                 </h2>
-                <p className="text-base leading-relaxed text-gray-300">
+                <p className="text-base leading-relaxed dark:text-gray-300 text-dark">
                   Utilizamos tecnología sofisticada, todo mientras mantenemos la
                   experiencia del usuario simple y libre de preocupaciones
                   técnicas.
@@ -167,10 +167,10 @@ const About: NextPage = () => {
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                   </svg>
                 </div>
-                <h2 className="title-font mb-2 text-lg font-medium text-white">
+                <h2 className="title-font mb-2 text-lg font-mediumdark:text-white text-black dark:text-white">
                   Compensación justa
                 </h2>
-                <p className="text-base leading-relaxed text-gray-300">
+                <p className="text-base leading-relaxed dark:text-gray-300 text-dark">
                   Nos enfocamos en asegurar una compensación justa para
                   consultores altamente solicitados, reflejando su verdadero
                   valor de mercado y evitando la insatisfacción profesional.

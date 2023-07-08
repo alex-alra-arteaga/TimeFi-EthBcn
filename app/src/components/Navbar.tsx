@@ -44,7 +44,7 @@ export default function Navbar() {
   return (
     <Disclosure
       as="nav"
-      className="bg-gradient-to-r from-black via-gray-800 to-gray-700"
+      className="dbg-white bg-gradient-to-r from-gray-100 via-gary-100 to-gray-100 ark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-700 "
     >
       {({ open }: { open: boolean }) => {
         return (
@@ -104,7 +104,7 @@ export default function Navbar() {
                   {/*this is the logo on the larger screen*/}
                   <Link href="/">
                     <Image
-                      className="hidden h-8 w-auto md:block lg:block"
+                      className="hidden h-8 w-auto md:block lg:block bg-gray-800 rounded-md"
                       width={230}
                       height={70}
                       src="/images/TimeFi-no-bg.png"
@@ -119,8 +119,8 @@ export default function Navbar() {
                         key={item.name}
                         href={item.href}
                         className={classNames(
-                          item.current ? "bg-gray-900" : "text-gray-300",
-                          "rounded-md px-3 py-2 text-sm font-bold text-white"
+                          item.current ? "bg-gray-900" : "text-gray-600",
+                          "rounded-md px-3 py-2 text-sm font-bold dark:text-white text-black" 
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <div className="bg-gradient-to-r from-black via-gray-800 to-gray-700">
+    <div className="bg-white bg-gradient-to-r from-gray-100 via-gary-100 to-gray-100 dark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-700">
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <path
           fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)"
@@ -24,7 +24,7 @@ export default function Hero() {
         </defs>
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-            <div className="text-shadow relative rounded-full border-white px-3 py-1 text-lg leading-6 text-gray-200 ring-1 ring-gray-200/10 hover:ring-gray-200/50">
+            <div className="text-shadow relative rounded-full border-white px-3 py-1 text-lg leading-6 text-gray-800 dark:text-gray-200 ring-1 ring-gray-200/10 hover:ring-gray-200/50">
               Haz que tus segundos cuenten | {" "}
               <Link
                 href="/characterElecting"
@@ -39,7 +39,7 @@ export default function Hero() {
             </div>
           </div>
           <div className="text-center ">
-            <h1 className="text-shadow text-4xl font-bold tracking-tight text-gray-100 sm:text-6xl">
+            <h1 className="text-shadow text-4xl font-bold tracking-tight dark:text-gray-100 sm:text-6xl text-gray-800">
               Tokeniza tu tiempo
             </h1>
             <p className="mt-6 text-lg leading-8 text-gray-400">

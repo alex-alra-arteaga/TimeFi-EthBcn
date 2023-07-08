@@ -11,8 +11,8 @@ export default function CardDisplay() {
 
   return (
     <Layout>
-      <div className="flex items-center justify-center dark:bg-gradient-to-r from-black via-gray-800 to-gray-700 min-h-screen">
-          <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="flex items-center justify-center  dark:bg-gradient-to-r from-black via-gray-800 to-gray-700 min-h-screen">
+          <div className="absolute inset-0 -z-10 overflow-hidden  ">
           <svg
             className="absolute top-0 left-[max(50%,25rem)] h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
             aria-hidden="true"

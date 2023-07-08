@@ -15,7 +15,7 @@ import {
           <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">Olivia Martin</p>
             <p className="text-sm text-muted-foreground">
-                0x6D61C1c430d9EbBe9d3A90d83370e96bd3EE25E4 
+                0x6D...25E4 
             </p>
           </div>
           <div className="ml-auto font-medium">+$1,999.00</div>
@@ -27,7 +27,7 @@ import {
           </Avatar>
           <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">Jackson Lee</p>
-            <p className="text-sm text-muted-foreground">0x0808334180392C61B15065aD56130b3b35a22806</p>
+            <p className="text-sm text-muted-foreground">0x08...2806</p>
           </div>
           <div className="ml-auto font-medium">+$39.00</div>
         </div>
@@ -39,7 +39,7 @@ import {
           <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">Isabella Nguyen</p>
             <p className="text-sm text-muted-foreground">
-                0x5a7D285D2aA51EF494E547df30B32EC424A0cFC6 
+                0x5a...cFC6 
             </p>
           </div>
           <div className="ml-auto font-medium">+$299.00</div>
@@ -51,7 +51,7 @@ import {
           </Avatar>
           <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">William Kim</p>
-            <p className="text-sm text-muted-foreground">0x7ca9B4BAb4e16bEbEDCfF403f7397935d905f0D3</p>
+            <p className="text-sm text-muted-foreground">0x7c...f0D3</p>
           </div>
           <div className="ml-auto font-medium">+$99.00</div>
         </div>
@@ -62,7 +62,7 @@ import {
           </Avatar>
           <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">Sofia Davis</p>
-            <p className="text-sm text-muted-foreground">0x0808334180392C61B15065aD56130b3b35a22806</p>
+            <p className="text-sm text-muted-foreground">0x08...2806</p>
           </div>
           <div className="ml-auto font-medium">+$39.00</div>
         </div>
