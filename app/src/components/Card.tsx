@@ -34,16 +34,19 @@ interface Result {
 
 interface Info {
   results: Result[];
-  info: {};
+  info: Record<string, never>;
 }
 
 export default function Card({ id, list }: CardProps) {
   const [info, setInfo] = useState<Info>();
 
   useEffect(() => {
-    fetch("https://randomuser.me/api/")
-      .then((r) => r.json())
-      .then((d) => setInfo(d));
+    void (async () => {
+      const req = await fetch("https://randomuser.me/api/");
+      const data = await req.json() as Info | undefined;
+
+      setInfo(data);
+    })();
   }, []);
 
   return info ? (

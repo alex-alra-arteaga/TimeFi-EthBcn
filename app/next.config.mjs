@@ -18,9 +18,6 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  images: {
-    domains: ['mrcrypto.s3.eu-central-1.amazonaws.com'],
-  },
   /**
    * Rainbowkit uses `fs` and `net` modules, which are not available in the browser. This is a workaround
    */

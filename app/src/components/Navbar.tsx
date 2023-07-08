@@ -91,7 +91,7 @@ export default function Navbar() {
                 </div>
                 <div className="flex flex-shrink-0 items-center">
                   <div className="absolute left-14 flex items-center justify-center sm:hidden">
-                    <Link href="/">
+                    {/* <Link href="/">
                       <Image
                         className="h-8 w-auto"
                         width={230}
@@ -99,7 +99,7 @@ export default function Navbar() {
                         src="/images/TimeFi-no-bg.png"
                         alt="Racks Labs Logo"
                       />
-                    </Link>
+                    </Link> */}
                   </div>
                   {/*this is the logo on the larger screen*/}
                   <Link href="/">

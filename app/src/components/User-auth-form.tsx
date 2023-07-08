@@ -14,7 +14,9 @@ import { Label } from "~/components/ui/label"
 import { toast } from "~/components/ui/use-toast"
 import { Icons } from "~/components/Icons"
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
+  someProp?: string
+}
 
 type FormData = z.infer<typeof userAuthSchema>
 
@@ -72,9 +74,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       <button
         type="button"
         className={cn(buttonVariants({ variant: "outline" }))}
-        onClick={() => {
+        onClick={async () => {
           setIsGitHubLoading(true)
-          signIn('github')
+          await signIn('github')
         }}
         disabled={isLoading || isGitHubLoading}
       >

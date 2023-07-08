@@ -14,7 +14,8 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { getCsrfToken } from "next-auth/react";
 import type { Session } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-
+import { SiweMessage } from "siwe";
+import GitHubProvider from "next-auth/providers/github";
 // Types
 // ========================================================
 /**
@@ -74,7 +75,7 @@ export const authOptions: (ctxReq: CtxOrReq) => NextAuthOptions =  ({
     },
     // OTHER CALLBACKS to take advantage of but not needed
     // signIn: async (params: { // Used to control if a user is allowed to sign in
-    //   user: User | AdapterUser
+    //   user: User | AdapterUxser
     //   account: Account | null
     //   // Not used for credentials
     //   profile?: Profile
@@ -133,7 +134,81 @@ export const authOptions: (ctxReq: CtxOrReq) => NextAuthOptions =  ({
   //   session: async (message: { session: Session; token: JWT }) => {}
   // },
   adapter: PrismaAdapter(prisma),
-  providers:  [
+  providers:   [
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID || "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || "",
+    }),
+    CredentialsProvider({
+      // ! Don't add this
+      // - it will assume more than one auth provider
+      // - and redirect to a sign-in page meant for oauth
+      // - id: 'siwe',
+      name: "Ethereum",
+      type: "credentials", // default for Credentials
+      // Default values if it was a form
+      credentials: {
+        message: {
+          label: "Message",
+          type: "text",
+          placeholder: "0x0",
+        },
+        signature: {
+          label: "Signature",
+          type: "text",
+          placeholder: "0x0",
+        },
+      },
+      authorize: async (credentials) => {
+        try {
+          const siwe = new SiweMessage(
+            JSON.parse(credentials?.message || "{}") as Partial<SiweMessage>
+          );
+          const nextAuthUrl = new URL(process.env.NEXTAUTH_URL ?? "");
+
+          const fields = await siwe.verify({
+            signature: credentials?.signature || "",
+            domain: nextAuthUrl.host,
+            nonce: await getCsrfToken({ req }),
+          });
+
+          // Check if user exists
+          let user = await prisma.user.findUnique({
+            where: {
+              address: fields.data.address,
+            },
+          });
+          // Create new user if doesn't exist
+          if (!user) {
+            user = await prisma.user.create({
+              data: {
+                address: fields.data.address,
+              },
+            });
+            // create account
+            await prisma.account.create({
+              data: {
+                userId: user.id,
+                type: "credentials",
+                provider: "Ethereum",
+                providerAccountId: fields.data.address,
+              },
+            });
+          }
+
+          return {
+            // Pass user id instead of address
+            // id: fields.address
+            id: user.id,
+            type: "ethereum",
+          };
+        } catch (error) {
+          // Uncomment or add logging if needed
+          console.error({ error });
+          return null;
+        }
+      },
+    }),
   ],
 });
 
@@ -152,3 +227,4 @@ export const getServerAuthSession = async (ctx: {
   // This allows use to retrieve the csrf token to verify as the nonce
   return getServerSession(ctx.req, ctx.res, authOptions(ctx));
 };
+

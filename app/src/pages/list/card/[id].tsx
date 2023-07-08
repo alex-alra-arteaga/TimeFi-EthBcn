@@ -2,9 +2,12 @@ import { useRouter } from 'next/router';
 import Card from '../../../components/Card';
 import CalendlyEmbed from '~/components/CalendlyEmbed';
 import { Layout } from '~/components/Layout';
+import { CardData, LiveDataProps } from '~/components/CardList';
+import { liveDataPropsArray } from '~/constants';
 
 export default function CardDisplay() {
   const router = useRouter();
+  const cardMetaData = liveDataPropsArray[Number(router.query.id)] as LiveDataProps;
 
   return (
     <Layout>
@@ -36,7 +39,7 @@ export default function CardDisplay() {
           </svg>
         </div>
         <div className="w-1/3 pl-20">
-          <Card id={Number(router.query.id)} list={false} />
+          <CardData {...cardMetaData} />
         </div>
         <div className="w-2/3">
           <CalendlyEmbed />

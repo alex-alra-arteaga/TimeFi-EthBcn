@@ -17,7 +17,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider refetchInterval={0} session={session}>
       <RainbowKitProvider >
         <Head>
-          <title>TITLE - CHANGEME</title> // Change me
+          <title>TITLE - CHANGEME</title>
           <meta
             name="description"
             content="Racks Labs Official Template" // Change me

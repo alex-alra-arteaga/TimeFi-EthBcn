@@ -76,7 +76,9 @@ type Team = (typeof groups)[number]["teams"][number]
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<typeof PopoverTrigger>
 
-interface TeamSwitcherProps extends PopoverTriggerProps {}
+interface TeamSwitcherProps extends PopoverTriggerProps {
+  someFutureProperty?: string;
+}
 
 export default function TeamSwitcher({ className }: TeamSwitcherProps) {
   const [open, setOpen] = React.useState(false)
