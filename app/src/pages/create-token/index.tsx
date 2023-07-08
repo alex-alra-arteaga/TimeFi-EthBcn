@@ -85,8 +85,8 @@ const CreateToken: React.FC = () => {
   const { isLoading: isIssuerTxLoading } = useWaitForTransaction({
     hash: createIssuerAccountData?.hash,
     confirmations: 1,
-    onSuccess: async () => {
-      await onSuccesCreatedAccount();
+    onSuccess: () => {
+      void onSuccesCreatedAccount();
     },
   });
 
@@ -107,8 +107,8 @@ const CreateToken: React.FC = () => {
   const { isLoading: isTokenTxLoading } = useWaitForTransaction({
     hash: createTokenData?.hash,
     confirmations: 1,
-    onSuccess: async () => {
-      await onSuccesCreatedToken();
+    onSuccess: () => {
+      void onSuccesCreatedToken();
     },
   });
 
@@ -129,7 +129,7 @@ const CreateToken: React.FC = () => {
 
   useEffect(() => {
     if (sessionData) {
-      queryUser.refetch();
+      void queryUser.refetch();
       if (queryUser.data?.hasActiveAccount) {
         console.log("entered");
         setHasAccount(true);
@@ -180,7 +180,7 @@ const CreateToken: React.FC = () => {
     setHasToken(true);
   };
 
-  const handleSubmitIssuer = async () => {
+  const handleSubmitIssuer = () => {
     try {
       createIssuerAccount?.();
     } catch (err) {
@@ -188,7 +188,7 @@ const CreateToken: React.FC = () => {
     }
   };
 
-  const handleSubmitToken = async () => {
+  const handleSubmitToken = () => {
     try {
       createToken?.();
     } catch (err) {
@@ -202,7 +202,9 @@ const CreateToken: React.FC = () => {
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 ">
           {accountAddress && tokenAddress && (
             <div className="text-shadow flex items-center justify-center text-slate-600  ">
-              <div className="text-xl text-black dark:text-white">CONGRATULATIONS! Account Set Up, go to Dashboard</div>
+              <div className="text-xl text-black dark:text-white">
+                CONGRATULATIONS! Account Set Up, go to Dashboard
+              </div>
             </div>
           )}
           {accountAddress && !hasToken && !tokenAddress && (
