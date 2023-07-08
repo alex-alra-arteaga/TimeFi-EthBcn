@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@font-face {
+  font-family: "Bradlens Demo";
+  src: local("Bradlens Demo"), url("/fonts/bradlensdemo-dow0w.ttf") format("truetype");
+  font-weight: bold;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 47.4% 11.2%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+
+    --primary: 38.88 76.69% 68.04%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 39 100% 14%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 215 20.2% 65.1%;
+
+    --radius: 0.5rem;
+    --third: 0 0% 7%;
+
+
+    --danger: 0, 59%, 44%;
+  }
+
+  .dark {
+    --background: 224 71% 4%;
+    --foreground: 213 31% 91%;
+
+    --muted: 223 47% 11%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+
+    --popover: 224 71% 4%;
+    --popover-foreground: 215 20.2% 65.1%;
+
+    --card: 224 71% 4%;
+    --card-foreground: 213 31% 91%;
+
+    --border: 216 34% 17%;
+    --input: 216 34% 17%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 1.2%;
+
+    --secondary: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 40% 98%;
+
+    --accent: 216 34% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --ring: 216 34% 17%;
+
+    --radius: 0.5rem;
+
+    --third: 0 0% 7%;
+  }
+}
+
+.bg-poker-imge {
+  height: 100%;
+  width: 50%;
+  padding: 0;
+  margin: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+  right: 0;
+}
+#react-day-picker-2 {
+  display: none;
+}
+.rdp-dropdown_month .font-medium {
+  display: none;
+}
+.rdp-dropdown_year .font-medium {
+  display: none;
+}
+.rdp-dropdown_year {
+  width: 100%;
+}
+.rdp-dropdown_year .rdp-vhidden {
+  display: none;
+}
+.rdp-dropdown_month  .rdp-vhidden {
+  display: none;
+}
+.rdp-caption_dropdowns .rdp-vhidden {
+  display: none;
+}
+.bg-price-two {
+  background: radial-gradient(88.89% 76.07% at 1.26% 0.73%, rgba(236, 192, 111, 0.68) 0%, rgba(18, 18, 18, 0.68) 100%);
+  backdrop-filter: blur(25px);
+  border-radius: 10px;
+}
+
+.bg-filter-home {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(20px);
+}
+.font-bradlens {
+  font-family: 'Bradlens Demo';
+}
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.card-responsive {
+  min-height: 40rem;
+  position: absolute;
+  width: 100%;
+  bottom: 0px;
+}
