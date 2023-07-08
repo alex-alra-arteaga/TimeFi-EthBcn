@@ -68,7 +68,7 @@ export default function DashboardPage() {
     address: XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
     abi: IssuerAccount_FactoryAbi,
     functionName: 'issuerToAccount',
-    args: [`0x${address}`],
+    args: [`0x${address ?? "0"}`],
   })
 
   const IssuerAccountAddress = data || undefined;
@@ -77,7 +77,7 @@ export default function DashboardPage() {
     address: XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
     abi: TimeFi_Token_Factory_ABI,
     functionName: 'issuerToToken',
-    args: [`0x${IssuerAccountAddress}`]
+    args: [`0x${IssuerAccountAddress ?? "0"}`]
   })
 
   

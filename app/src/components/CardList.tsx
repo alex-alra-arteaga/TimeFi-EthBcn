@@ -254,7 +254,7 @@ export const CardData: React.FC<LiveDataProps> = (props) => {
                 </Text>
               </div>
             </div>
-            <a target="_blank" className="flex justify-center align-center mt-4" href={`https://analytics.xspswap.finance/pair/${tokenAddress[Number(id)]}`}>
+            <a target="_blank" className="flex justify-center align-center mt-4"   href={`https://analytics.xspswap.finance/pair/${tokenAddress[Number(id)]!}`}>
               <Button >See Token</Button>
             </a>
           </div>
