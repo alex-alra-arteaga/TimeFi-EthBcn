@@ -33,7 +33,7 @@
     "@trpc/next": "^10.30.0",
     "@trpc/react-query": "^10.30.0",
     "@trpc/server": "^10.30.0",
-    "class-variance-authority": "^0.6.0",
+    "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",

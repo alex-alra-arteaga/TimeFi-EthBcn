@@ -50,7 +50,8 @@ model User {
     image            String?
     accounts         Account[]
     sessions         Session[]
-    hasActiveAccount Boolean   @default(false)
+    hasActiveAccount Boolean?   @default(false)
+    hasActiveToken   Boolean?   @default(false)
 }
 
 model VerificationToken {
