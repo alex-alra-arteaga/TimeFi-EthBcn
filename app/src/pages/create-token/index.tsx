@@ -12,7 +12,7 @@ import {
   useWaitForTransaction,
 } from "wagmi";
 import { eventNames } from "process";
-import { write } from "fs";
+import { stat, write } from "fs";
 import { WriteContractResult } from "@wagmi/core";
 import { prisma } from "~/server/db";
 import { useSession } from "next-auth/react";
@@ -23,28 +23,19 @@ interface IState {
   symbol: string;
 }
 
+// how to see if user has account, or not...
+
 const CreateToken: React.FC = () => {
-  const sesion = useSession();
+  const { data: sessionData, status } = useSession();
   const queryUser = api.user.findUser.useQuery();
   const [tokenData, setTokenData] = useState<IState>({ name: "", symbol: "" });
   const [accountName, setAccountName] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [hasAccount, setHasAccount] = useState<boolean>(
-    queryUser.data?.hasActiveAccount
-  );
-
-  // use effect for checking if user has accoun
-
-  const onSuccesCreatedAccount = async () => {
-    await updateAccount(); // set update account to ture
-    setHasAccount(true);
-  };
-
-  const address = XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS; // contracty address
+  const [hasAccount, setHasAccount] = useState<boolean>(false);
 
   const { config: approveConfig } = usePrepareContractWrite({
     abi: IssuerAccount_FactoryAbi,
-    address: address,
+    address: XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
     functionName: "createIssuerAccount",
     args: [accountName],
   });
@@ -57,8 +48,10 @@ const CreateToken: React.FC = () => {
 
   const { isLoading: isTxLoading } = useWaitForTransaction({
     hash: createIssuerAccountData?.hash,
-    confirmations: 1,
-    onSuccess: onSuccesCreatedAccount,
+    confirmations: 6,
+    onSuccess: async () => {
+      onSuccesCreatedAccount();
+    },
   });
 
   const { mutateAsync: updateAccount } = api.user.updateUser.useMutation({
@@ -66,6 +59,56 @@ const CreateToken: React.FC = () => {
       console.log("success");
     },
   });
+
+  useEffect(() => {
+    if (sessionData) {
+      queryUser.refetch();
+      if (queryUser.data?.hasActiveAccount) {
+        setHasAccount(true);
+      }
+    }
+  }, []); // sessionData
+
+  if (queryUser.isLoading || status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (!sessionData) {
+    return (
+      <Layout>
+        <div className="App">
+          <div
+            style={{
+              padding: "20px",
+              backgroundColor: "#f44336", // Red
+              color: "white",
+              marginBottom: "15px",
+            }}
+          >
+            <span
+              style={{
+                marginRight: "15px",
+              }}
+            >
+              &#9888;
+            </span>
+            {`You're not logged in! Connect your wallet to log in.`}
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  if (isTxLoading || isCreatingIssuerAccount) {
+    return <Layout> </Layout>;
+  }
+
+
+  const onSuccesCreatedAccount = async () => {
+    await updateAccount(); // set update account to ture
+    setHasAccount(true);
+
+  };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTokenData({ ...tokenData, [event.target.name]: event.target.value });
