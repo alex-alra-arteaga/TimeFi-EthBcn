@@ -197,12 +197,12 @@ const CreateToken: React.FC = () => {
   };
 
   return (
-    <div className="min-h-full dark:bg-gray-800">
+    <div className="min-h-full bg-gray-100 dark:bg-gray-800 dark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-700">
       <Layout>
-        <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 ">
           {accountAddress && tokenAddress && (
-            <div className="text-shadow flex items-center justify-center text-slate-600 ">
-              <div className="text-xl">CONGRATULATIONS! Account Set Up, go to Dashboard</div>
+            <div className="text-shadow flex items-center justify-center text-slate-600  ">
+              <div className="text-xl text-black dark:text-white">CONGRATULATIONS! Account Set Up, go to Dashboard</div>
             </div>
           )}
           {accountAddress && !hasToken && !tokenAddress && (

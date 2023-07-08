@@ -1,8 +1,8 @@
 
 
 export const Footer: React.FC = () => (
-    <footer className="bg-white bg-gradient-to-r from-gray-100 via-gary-100 to-gray-100 dark:bg-gray-900">
-        <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8 dark:bg-gradient-to-r from-black via-gray-800 to-gray-700">
+    <footer className="bg-white bg-gradient-to-r from-gray-100 via-gary-100 to-gray-100 dark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-700">
+        <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
             <div className="md:flex md:justify-between">
                 <div className="mb-6 md:mb-0">
                     <a href="https://www.labs.racksmafia.com/" className="flex items-center">
