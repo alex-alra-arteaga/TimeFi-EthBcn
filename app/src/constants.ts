@@ -22,7 +22,7 @@ export const liveDataPropsArray: LiveDataProps[] = [
       description: "Chairman of VaynerX, CEO of VaynerMedia, and a popular public speaker.",
       industry: "Marketing/Entrepreneurship",
       goal: "Helping businesses navigate the digital landscape.",
-      image: "/images/GaryV.jpg",
+      image: "/images/garyV.jpg",
       deadline: "2023-12-31",
       linkedInUrl: "https://linkedin.com/in/garyvaynerchuk",
       twitterUrl: "https://twitter.com/garyvee",
