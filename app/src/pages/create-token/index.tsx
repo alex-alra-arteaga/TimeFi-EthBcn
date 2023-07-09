@@ -233,7 +233,7 @@ const CreateToken: React.FC = () => {
   const handleSubmitIssuer = () => {
     try {
       createIssuerAccount?.();
-      Swal.fire({
+      void Swal.fire({
         title: "Account Created!",
         text: "You can now create your token",
         icon: "success",
@@ -247,7 +247,7 @@ const CreateToken: React.FC = () => {
   const handleSubmitToken = () => {
     try {
       createToken?.();
-      Swal.fire({
+      void Swal.fire({
         title: "Token Created!",
         text: "You can now go to your dashboard",
         icon: "success",

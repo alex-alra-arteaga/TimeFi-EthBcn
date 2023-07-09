@@ -59,7 +59,6 @@ import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 import { useState } from "react";
 import Swal from "sweetalert2";
-import { on } from "events";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -118,7 +117,7 @@ export default function DashboardPage() {
   const address = user?.address;
 
   const onSuccesCreatedPair = () => {
-    Swal.fire({
+    void Swal.fire({
       title: "Pair Created Succesfully",
       text: "You created your pair succesfully",
       icon: "success",
@@ -127,7 +126,7 @@ export default function DashboardPage() {
   }
 
   const onSuccesMint = () => {
-    Swal.fire({
+    void Swal.fire({
       title: "Minted Succesfully",
       text: "You minted your tokens succesfully",
       icon: "success",
@@ -136,7 +135,7 @@ export default function DashboardPage() {
   }
 
   const onSuccesSetRoyalties = () => {
-    Swal.fire({
+    void Swal.fire({
       title: "Royalties Set Succesfully",
       text: "You set your royalties succesfully",
       icon: "success",
@@ -145,7 +144,7 @@ export default function DashboardPage() {
   }
 
   const onSuccesSetFixPrice = () => {
-    Swal.fire({
+    void Swal.fire({
       title: "Fix Price Set Succesfully",
       text: "You set your fix price succesfully",
       icon: "success",
@@ -154,7 +153,7 @@ export default function DashboardPage() {
   }
 
   const onTxError = () => {
-    Swal.fire({
+    void Swal.fire({
       title: "Error",
       text: "There was an error with your transaction",
       icon: "error",
