@@ -17,22 +17,22 @@ const MyApp: AppType<{ session: Session | null }> = ({
     <SessionProvider refetchInterval={0} session={session}>
       <RainbowKitProvider >
         <Head>
-          <title>TITLE - CHANGEME</title>
+          <title>Chronos dApp</title>
           <meta
             name="description"
-            content="Racks Labs Official Template" // Change me
+            content="TimeFi - Chronos Implementation"
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&family=Poppins:ital,wght@0,100;0,200;0,400;0,500;1,100&display=swap"
             rel="stylesheet"
           ></link>
           <link rel="icon" type="image/png" href="/LogoBlack.png" />
-          <meta property="og:title" content="Template - Change Me" />
-          <meta property="og:image" content="CHANGEME.JPG" />
+          <meta property="og:title" content="Chronos dApp" />
+          <meta property="og:image" content="/images/TimeFi-no-bg.png" />
           <meta name="twitter:card" content="" />
           <meta name="twitter:site" content="" />
           <meta name="twitter:creator" content="" />
-          <meta property="og:url" content="https://" />
+          <meta property="og:url" content="https://"/>
           <meta property="og:title" content="" />
           <meta property="og:description" content="" />
           <meta property="og:image" content="" />
