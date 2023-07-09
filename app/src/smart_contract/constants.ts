@@ -20,6 +20,18 @@ export const XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS =
 export const XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS =
   "0x75bAD9C79AfcbF16D6442AdA858AD6f9464aB0F8";
 
+export const XDC_MAINNET_TIMEFI_CORE_ADDRESS = "0x8B19AfD24d9c02d394154321389Cef1bC2A3cff3"
+export const XDC_MAINNET_TIMEFITOKEN_ADDRESS = "0xe3d5cA6861A5cABD30AAAF78333b0Cc7Ea809DFF"
+export const XDC_MAINNET_TIMEFIISSUERACCOUNT_ADDRESS = "0xe76B601EEE6E3EF3D7aEF177047B3e10DC37A561"
+export const XDC_MAINNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS = "0xBb587320C4A00abDe1648421648D0Cb4305c193c"
+export const XDC_MAINNET_TIMEFI_TOKENFACTORY_ADDRESS = "0xd46B303548149Aa5539442fd0cbE6F8F41DB3706"
+
+export const GNOSIS_TESTNET_TIMEFI_CORE_ADDRESS = "0x75bAD9C79AfcbF16D6442AdA858AD6f9464aB0F8"
+export const GNOSIS_TESTNET_TIMEFI_TOKEN_ADDRESS = "0xF3Fe973f3Bd3d6ac17A75103c808c375eA74FBFc"
+export const GNOSIS_TESTNET_TIMEFI_ISSUERACCOUNT_ADDRESS = "0xf6c41de1Cb1C468cEf1F012b6B234Edb5520d22F"
+export const GNOSIS_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS = "0xA6371a12fE38d03c36b5b6F1FC498A4b7AbBFd2c"
+export const GNOSIS_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS = "0x60C9729Fe8ebA284cfB54B014AfA2d71D7E8f0F7"
+
 export const IssuerAccount_FactoryAbi = [
   {
     inputs: [
@@ -708,12 +720,32 @@ export const TimeFi_Token_ABI = [
   },
 ] as const;
 
-export const TimeFi_Token_Factory_ABI = [
+  export const TimeFiCoreABI = [
   {
     inputs: [
       {
         internalType: "address",
-        name: "_timeFiTokenImplementation",
+        name: "_xSwapFactory",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_uniswapRouter",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_wrappedXDC",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_tokenFactory",
+        type: "address",
+      },
+      {
+        internalType: "address",
+        name: "_issuerAccountFactory",
         type: "address",
       },
     ],
@@ -721,17 +753,61 @@ export const TimeFi_Token_Factory_ABI = [
     type: "constructor",
   },
   {
-    anonymous: false,
     inputs: [
       {
-        indexed: false,
-        internalType: "uint8",
-        name: "version",
-        type: "uint8",
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "issuerToken",
+        type: "address",
       },
     ],
-    name: "Initialized",
-    type: "event",
+    name: "_getOracleQuote",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "issuerToken",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amountIssuerToken",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "amountWXDC",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "amountIssuerTokenMin",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "amountWXDCMin",
+        type: "uint256",
+      },
+    ],
+    name: "addLiquidity",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
   },
   {
     inputs: [
@@ -741,7 +817,7 @@ export const TimeFi_Token_Factory_ABI = [
         type: "uint256",
       },
     ],
-    name: "allTimeFiTokens",
+    name: "allTokensPairs",
     outputs: [
       {
         internalType: "address",
@@ -756,62 +832,44 @@ export const TimeFi_Token_Factory_ABI = [
     inputs: [
       {
         internalType: "address",
-        name: "customizedToken",
+        name: "issuerToken",
         type: "address",
       },
-      {
-        internalType: "string",
-        name: "_issuerName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_issuerSymbol",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_fixedPrice",
-        type: "uint256",
-      },
     ],
-    name: "createCustomizedToken",
+    name: "createPair",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [
+    inputs: [],
+    name: "issuerAccountFactory",
+    outputs: [
       {
-        internalType: "string",
-        name: "_issuerName",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_issuerSymbol",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_fixedPrice",
-        type: "uint256",
-      },
-    ],
-    name: "createToken",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
+        internalType: "contract TimeFi__IssuerAccountFactory",
         name: "",
         type: "address",
       },
     ],
-    name: "issuerToToken",
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "tokenFactory",
+    outputs: [
+      {
+        internalType: "contract TimeFi__TokenFactory",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "wrappedXDC",
     outputs: [
       {
         internalType: "address",
@@ -824,10 +882,23 @@ export const TimeFi_Token_Factory_ABI = [
   },
   {
     inputs: [],
-    name: "timeFiTokenImplementation",
+    name: "xSwapFactory",
     outputs: [
       {
-        internalType: "address",
+        internalType: "contract IUniswapV2Factory",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "xSwapRouter",
+    outputs: [
+      {
+        internalType: "contract IUniswapV2Router02",
         name: "",
         type: "address",
       },

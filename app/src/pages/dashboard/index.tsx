@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import Image from "next/image";
 import { Input } from "~/components/ui/input";
-
+import { Toast, toast } from "react-hot-toast";
 import {
   Card,
   CardContent,
@@ -33,62 +33,237 @@ import {
   SheetTrigger,
 } from "~/components/ui/sheet";
 import { ButtonLoading } from "~/components/ui/buttonwloading";
-import { useContractRead, usePrepareContractWrite } from "wagmi";
-import {XDC_TESTNET_TIMEFI_TOKEN_ADDRESS, XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS, XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS, TimeFi_Token_Factory_ABI} from "../../smart_contract/constants"
-import {TimeFi_Token_ABI, IssuerAccount_FactoryAbi} from "../../smart_contract/constants"
+import { useConnect, useContractRead, useContractWrite, useNetwork, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import {
+  XDC_TESTNET_TIMEFI_TOKEN_ADDRESS,
+  XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+  XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
+  TimeFiToken_FactoryAbi,
+  TimeFiCoreABI,
+  XDC_MAINNET_TIMEFI_CORE_ADDRESS,
+  XDC_MAINNET_TIMEFI_TOKENFACTORY_ADDRESS,
+  XDC_MAINNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+  XDC_TESTNET_TIMEFI_CORE_ADDRESS,
+  GNOSIS_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+  GNOSIS_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
+  GNOSIS_TESTNET_TIMEFI_CORE_ADDRESS,
+  SCROLL_TIMEFIISSUERACCOUNTFACTORY_ADDRESS,
+  SCROLL_TIMEFITOKENFACTORY_ADDRESS,
+  SCROLL_TIMEFICORE_ADDRESS,
+} from "../../smart_contract/constants";
+import {
+  TimeFi_Token_ABI,
+  IssuerAccount_FactoryAbi,
+} from "../../smart_contract/constants";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
+import { useState } from "react";
+import Swal from "sweetalert2";
+import { on } from "events";
 
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "Example dashboard app using the components.",
 };
 
-
-
-
 export default function DashboardPage() {
-  // todo: Implement WAGMI function here
+  // todo: add good addresses
+  // todo: fix the create pair fnc
+  // todo: add toat used in scholario
+  // dynamic contract address
+  const [tokensToMint, settokensToMInt]  = useState(0);
+  const [royalties, setRoyalties] = useState(0);
+  const [fixPrice, setFixPrice] = useState(0);
+  const { data: sessionData } = useSession();
+  console.log(sessionData?.user.id);
 
-  // wagmi hooks to make it, + toast  notification
+  // todo: mulit chain in crate-token and index.tsx
+  const {chain} = useNetwork();
 
-  // get the address: 
+  let ISSUER_ACCOUNT_FACTORY_ADDRESS;
+  let TIMEFI_TOKEN_FACTORY_ADDRESS;
+  let TIMEFI_CORE_ADDRESS;
 
-  const {data: sessionData} = useSession()
-  console.log(sessionData?.user.id)
+  // gnosisi, scroll, xdc, xdc testnet
+  switch (chain?.id) {
+    case 50: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = XDC_MAINNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = XDC_MAINNET_TIMEFI_TOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = XDC_MAINNET_TIMEFI_CORE_ADDRESS;
+    }
+      break;
+    case 51: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = XDC_TESTNET_TIMEFI_CORE_ADDRESS;
+    }
+      break;
+    case 100: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = GNOSIS_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = GNOSIS_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = GNOSIS_TESTNET_TIMEFI_CORE_ADDRESS;
+    }
+      break;
+    case 534353: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = SCROLL_TIMEFIISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = SCROLL_TIMEFITOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = SCROLL_TIMEFICORE_ADDRESS;
+    }
+      break;
+    default:
+  }
 
-  const {data: user, status} = api.user.findUser.useQuery()
+  const { data: user, status } = api.user.findUser.useQuery();
   // query the user..address..
-  const address = user?.address || undefined;
+  const address = user?.address;
 
+  const onSuccesCreatedPair = () => {
+    Swal.fire({
+      title: "Pair Created Succesfully",
+      text: "You created your pair succesfully",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+  }
+
+  const onSuccesMint = () => {
+    Swal.fire({
+      title: "Minted Succesfully",
+      text: "You minted your tokens succesfully",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+  }
+
+  const onSuccesSetRoyalties = () => {
+    Swal.fire({
+      title: "Royalties Set Succesfully",
+      text: "You set your royalties succesfully",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+  }
+
+  const onSuccesSetFixPrice = () => {
+    Swal.fire({
+      title: "Fix Price Set Succesfully",
+      text: "You set your fix price succesfully",
+      icon: "success",
+      confirmButtonText: "Ok",
+    });
+  }
+
+  const onTxError = () => {
+    Swal.fire({
+      title: "Error",
+      text: "There was an error with your transaction",
+      icon: "error",
+      confirmButtonText: "Ok",
+    });
+  }
 
   // todo: query the db
   // if it has a Account address
-  const {data, isError, isLoading} =  useContractRead({
-    address: XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+  const { data: AccountAddress, isError, isLoading } = useContractRead({
     abi: IssuerAccount_FactoryAbi,
-    functionName: 'issuerToAccount',
-    args: [`0x${address ?? "0"}`],
-  })
-
-  const IssuerAccountAddress = data || undefined;
-
-  const {data: tokenFactoryData, isError: tokenFactoryIsError, isLoading : tokenFactoryIsLoading} = useContractRead({
-    address: XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
-    abi: TimeFi_Token_Factory_ABI,
-    functionName: 'issuerToToken',
-    args: [`0x${IssuerAccountAddress ?? "0"}`]
-  })
-
-  
-  const {} = usePrepareContractWrite({
-    address: XDC_TESTNET_TIMEFI_TOKEN_ADDRESS,
-    abi: TimeFi_Token_ABI
+    address: ISSUER_ACCOUNT_FACTORY_ADDRESS as `0x${string}`,
+    functionName: "issuerToAccount",
+    args: [address as `0x${string}`],
+    chainId: chain?.id
   });
 
-  const isLoading1 = true;
+
+  const {
+    data: tokenAddress,
+    isError: tokenFactoryIsError,
+    isLoading: tokenFactoryIsLoading,
+  } = useContractRead({
+    address: TIMEFI_TOKEN_FACTORY_ADDRESS as `0x${string}`,
+    abi: TimeFiToken_FactoryAbi,
+    functionName: "issuerToToken",
+    args: [address as  `0x${string}`],
+    chainId: chain?.id
+  });
+
+  console.log("This is the account address", AccountAddress);
+  console.log("This is the Token Address",  tokenAddress);
 
 
+  // todo: add router to crate pairs ->
+  const { config: createPairConfig } = usePrepareContractWrite({
+    address: TIMEFI_CORE_ADDRESS as  `0x${string}`, // testnet address
+    abi: TimeFiCoreABI,
+    functionName: "createPair",
+    args: [tokenAddress as `0x${string}`]
+  });
+
+  const {isLoading: createPairLoading , isError: isCreatePairError , data: createPairData, write: createPairTx} = useContractWrite(createPairConfig)
+
+  const { isLoading: isPairLoading } = useWaitForTransaction({
+    hash:createPairData?.hash,
+    confirmations: 1,
+    onSuccess: () => {
+      void onSuccesCreatedPair();
+    },
+    onError: () => {onTxError()}
+  });
+
+  const { config: mintTimeConfig } = usePrepareContractWrite({
+    address: tokenAddress,
+    abi: TimeFi_Token_ABI,
+    functionName: "mintTime",
+    args: [BigInt(tokensToMint)],
+  });
+
+  const {isLoading: isMintLoading, isError: isMintError, data: mintData, write: MintTx} = useContractWrite(mintTimeConfig)
+
+  const { isLoading: isMintTxLoading } = useWaitForTransaction({
+    hash:mintData?.hash,
+    confirmations: 1,
+    onSuccess: () => {
+      void onSuccesMint();
+    },
+    onError: () => {onTxError()}
+  });
+
+  const { config: setFixedPriceConfig } = usePrepareContractWrite({
+    address: tokenAddress,
+    abi: TimeFi_Token_ABI,
+    functionName: "setFixedPrice",
+    args: [BigInt(fixPrice)],
+  });
+  const {isLoading: isFixPriceLoading, isError: isFixPriceError, data: fixPriceData, write: FixedPriceTx } = useContractWrite(setFixedPriceConfig);
+
+  const { isLoading: isFixedPriceTxLoading } = useWaitForTransaction({
+    hash:fixPriceData?.hash,
+    confirmations: 1,
+    onSuccess: () => {
+      onSuccesSetFixPrice();
+    },
+    onError: () => {onTxError()}
+  });
+
+
+  const { config: setRoyalitesConfig } = usePrepareContractWrite({
+    address: tokenAddress,
+    abi: TimeFi_Token_ABI,
+    functionName: "setRoyalties",
+    args: [BigInt(royalties)],
+  });
+
+
+  const {isLoading: isSetRoyaltiesLoading, isError: isRoyaltiesError, data: royaltiesData, write: SetRoyaltiesTx } = useContractWrite(setRoyalitesConfig);
+
+  const { isLoading: isSetRoyaltiesTxLoading } = useWaitForTransaction({
+    hash:royaltiesData?.hash,
+    confirmations: 1,
+    onSuccess: () => {onSuccesSetRoyalties()},
+    onError: () => {onTxError()}
+  });
+
+  if (isRoyaltiesError || isFixPriceError || isCreatePairError || isMintError || isError) {
+    console.log("Error");
+  }
 
   return (
     <div className="via-gary-100 bg-white bg-gradient-to-r from-gray-100 to-gray-100 dark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-700 dark:text-white">
@@ -118,7 +293,6 @@ export default function DashboardPage() {
             <div className="flex items-center space-x-2">
               <CalendarDateRangePicker />
               <Button>Select Slot</Button>
-
               {/** @dev starts here */}
               <Sheet>
                 <SheetTrigger>
@@ -135,13 +309,14 @@ export default function DashboardPage() {
 
                     <div className="flex w-full max-w-sm items-center space-x-2">
                       <Input
+                        onChange={(e) => settokensToMInt(parseInt(e.target.value))}
                         type="number"
                         placeholder="Amount of tokens to Mint"
                       />
-                      {isLoading ? (
+                      {(isMintLoading || isMintTxLoading) ? (
                         <ButtonLoading />
                       ) : (
-                        <Button type="submit">Mint</Button>
+                        <Button onClick={() => MintTx?.()}>Mint</Button>
                       )}
                     </div>
                     <SheetDescription>
@@ -149,13 +324,14 @@ export default function DashboardPage() {
                     </SheetDescription>
                     <div className="flex w-full max-w-sm items-center space-x-2">
                       <Input
+                        onChange={(e) => setRoyalties(parseInt(e.target.value))}
                         type="number"
                         placeholder="Royaltie in percentage"
                       />
-                      {isLoading ? (
+                      {isSetRoyaltiesLoading || isSetRoyaltiesTxLoading? (
                         <ButtonLoading />
                       ) : (
-                        <Button type="submit">Set Royaltie</Button>
+                        <Button onClick={() => SetRoyaltiesTx?.() }>Set Royaltie</Button>
                       )}
                     </div>
                     <SheetDescription>
@@ -163,24 +339,24 @@ export default function DashboardPage() {
                     </SheetDescription>
                     <div className="flex w-full max-w-sm items-center space-x-2">
                       <Input
+                        onChange={(e) => setFixPrice(parseInt(e.target.value))}
                         type="number"
                         placeholder="Enter fix price per token"
                       />
-                      {isLoading ? (
+                      {isFixPriceLoading || isFixedPriceTxLoading ? (
                         <ButtonLoading />
                       ) : (
-                        <Button type="submit">Set Price</Button>
+                        <Button onClick={(e) =>{ e.preventDefault(), FixedPriceTx?.()}}>Set Price</Button>
                       )}
                     </div>
                     <SheetTitle>
                       <span className="font-bold">Account Actions</span>
                     </SheetTitle>
                     <SheetDescription>Create token Pair</SheetDescription>
-
-                    {isLoading ? (
+                    {(createPairLoading || isPairLoading) ? (
                       <ButtonLoading />
                     ) : (
-                      <Button type="submit">Create Pair</Button>
+                      <Button onClick={(e) => { e.preventDefault(), createPairTx?.()}} >Create Pair</Button>
                     )}
                   </SheetHeader>
                 </SheetContent>

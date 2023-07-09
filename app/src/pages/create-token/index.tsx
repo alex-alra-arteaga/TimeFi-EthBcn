@@ -3,11 +3,6 @@ import axios from "axios";
 import { Layout } from "~/components/Layout";
 // import custom abi
 import {
-  IssuerAccount_FactoryAbi,
-  TimeFiToken_FactoryAbi,
-  XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
-} from "~/smart_contract/constants";
-import {
   erc20ABI,
   useAccount,
   useContractRead,
@@ -24,10 +19,28 @@ import { FcIdea } from "react-icons/fc";
 import { prisma } from "~/server/db";
 import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
-import { XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS } from "../../smart_contract/constants";
 import { Loader2 } from "lucide-react";
 import { Tooltip } from "@nextui-org/react";
 import toast from "react-hot-toast";
+import {
+  XDC_TESTNET_TIMEFI_TOKEN_ADDRESS,
+  XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+  XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
+  TimeFiToken_FactoryAbi,
+  TimeFiCoreABI,
+  IssuerAccount_FactoryAbi,
+  XDC_MAINNET_TIMEFI_CORE_ADDRESS,
+  XDC_MAINNET_TIMEFI_TOKENFACTORY_ADDRESS,
+  XDC_MAINNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+  XDC_TESTNET_TIMEFI_CORE_ADDRESS,
+  GNOSIS_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+  GNOSIS_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
+  GNOSIS_TESTNET_TIMEFI_CORE_ADDRESS,
+  SCROLL_TIMEFIISSUERACCOUNTFACTORY_ADDRESS,
+  SCROLL_TIMEFITOKENFACTORY_ADDRESS,
+  SCROLL_TIMEFICORE_ADDRESS,
+} from "../../smart_contract/constants";
+import Swal from "sweetalert2";
 
 interface IState {
   name: string;
@@ -49,26 +62,63 @@ const CreateToken: React.FC = () => {
   const [hasAccount, setHasAccount] = useState<boolean>(false);
   const [hasToken, setHasToken] = useState<boolean>(false);
   const { chain } = useNetwork();
+
+  let ISSUER_ACCOUNT_FACTORY_ADDRESS;
+  let TIMEFI_TOKEN_FACTORY_ADDRESS;
+  let TIMEFI_CORE_ADDRESS;
+
+  // gnosisi, scroll, xdc, xdc testnet
+  switch (chain?.id) {
+    case 50: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = XDC_MAINNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = XDC_MAINNET_TIMEFI_TOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = XDC_MAINNET_TIMEFI_CORE_ADDRESS;
+    }
+      break;
+    case 51: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = XDC_TESTNET_TIMEFI_CORE_ADDRESS;
+    }
+      break;
+    case 100: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = GNOSIS_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = GNOSIS_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = GNOSIS_TESTNET_TIMEFI_CORE_ADDRESS;
+    }
+      break;
+    case 534353: {
+      ISSUER_ACCOUNT_FACTORY_ADDRESS = SCROLL_TIMEFIISSUERACCOUNTFACTORY_ADDRESS;
+      TIMEFI_TOKEN_FACTORY_ADDRESS = SCROLL_TIMEFITOKENFACTORY_ADDRESS;
+      TIMEFI_CORE_ADDRESS = SCROLL_TIMEFICORE_ADDRESS;
+    }
+      break;
+    default:
+  }
   const { address } = useAccount();
+  const zeroAddress = "0x0000000000000000000000000000000000000000" as const;
   const { data: accountAddress } = useContractRead({
     abi: IssuerAccount_FactoryAbi,
-    address: XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+    address: ISSUER_ACCOUNT_FACTORY_ADDRESS as `0x${string}`,
     functionName: "issuerToAccount",
-    args: [address ?? "0x"],
+    args: [address as  `0x${string}`],
     chainId: chain?.id,
   });
 
   const { data: tokenAddress } = useContractRead({
     abi: TimeFiToken_FactoryAbi,
-    address: XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
+    address: TIMEFI_TOKEN_FACTORY_ADDRESS as `0x${string}`,
     functionName: "issuerToToken",
-    args: [address ?? "0x"],
+    args: [accountAddress as  `0x${string}`],
     chainId: chain?.id,
   });
-
+  
+  console.log("This is the account address:", accountAddress);
+  console.log("This is the token address", tokenAddress);
+  
   const { config: issuerConfig } = usePrepareContractWrite({
     abi: IssuerAccount_FactoryAbi,
-    address: XDC_TESTNET_TIMEFI_ISSUERACCOUNTFACTORY_ADDRESS,
+    address: ISSUER_ACCOUNT_FACTORY_ADDRESS as `0x${string}`,
     functionName: "createIssuerAccount",
     args: [accountName],
     chainId: chain?.id,
@@ -92,7 +142,7 @@ const CreateToken: React.FC = () => {
 
   const { config: tokenConfig } = usePrepareContractWrite({
     abi: TimeFiToken_FactoryAbi,
-    address: XDC_TESTNET_TIMEFI_TOKENFACTORY_ADDRESS,
+    address: TIMEFI_TOKEN_FACTORY_ADDRESS as `0x${string}`,
     functionName: "createToken",
     args: [tokenData.name, tokenData.symbol, BigInt(tokenData.fixedPrice)],
     chainId: chain?.id,
@@ -183,6 +233,12 @@ const CreateToken: React.FC = () => {
   const handleSubmitIssuer = () => {
     try {
       createIssuerAccount?.();
+      Swal.fire({
+        title: "Account Created!",
+        text: "You can now create your token",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -191,6 +247,12 @@ const CreateToken: React.FC = () => {
   const handleSubmitToken = () => {
     try {
       createToken?.();
+      Swal.fire({
+        title: "Token Created!",
+        text: "You can now go to your dashboard",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
     } catch (err) {
       console.log(err);
     }
@@ -200,14 +262,14 @@ const CreateToken: React.FC = () => {
     <div className="min-h-full bg-gray-100 dark:bg-gray-800 dark:bg-gradient-to-r dark:from-black dark:via-gray-800 dark:to-gray-700">
       <Layout>
         <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 ">
-          {accountAddress && tokenAddress && (
+          { (accountAddress !== zeroAddress) && (tokenAddress !== zeroAddress) &&  (
             <div className="text-shadow flex items-center justify-center text-slate-600  ">
               <div className="text-xl text-black dark:text-white">
                 CONGRATULATIONS! Account Set Up, go to Dashboard
               </div>
             </div>
           )}
-          {accountAddress && !hasToken && !tokenAddress && (
+          {!hasToken  && (accountAddress !== zeroAddress) && (tokenAddress === zeroAddress) && (
             <div className="mx-auto max-w-lg">
               <h1 className="text-center text-2xl font-bold text-indigo-600 dark:text-indigo-300 sm:text-3xl">
                 Set up your token
@@ -302,7 +364,7 @@ const CreateToken: React.FC = () => {
               </form>
             </div>
           )}
-          {!hasAccount && !hasToken && !accountAddress && (
+          {!hasAccount && !hasToken &&  ((accountAddress === zeroAddress) || !accountAddress) && (
             <div className="mx-auto max-w-lg">
               <h1 className="text-center text-2xl font-bold text-indigo-600 dark:text-indigo-300 sm:text-3xl">
                 Register to TimeFi Protocol!
