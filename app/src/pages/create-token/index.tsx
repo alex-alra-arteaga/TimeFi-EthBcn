@@ -115,7 +115,7 @@ const CreateToken: React.FC = () => {
   
   console.log("This is the account address:", accountAddress);
   console.log("This is the token address", tokenAddress);
-  
+
   const { config: issuerConfig } = usePrepareContractWrite({
     abi: IssuerAccount_FactoryAbi,
     address: ISSUER_ACCOUNT_FACTORY_ADDRESS as `0x${string}`,
@@ -188,8 +188,7 @@ const CreateToken: React.FC = () => {
         setHasToken(true);
       }
     }
-  }, []); // sessionData
-
+  }, []);
   console.log({ hasAccount });
 
   if (!sessionData) {
@@ -233,12 +232,6 @@ const CreateToken: React.FC = () => {
   const handleSubmitIssuer = () => {
     try {
       createIssuerAccount?.();
-      void Swal.fire({
-        title: "Account Created!",
-        text: "You can now create your token",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
     } catch (err) {
       console.log(err);
     }
@@ -247,12 +240,6 @@ const CreateToken: React.FC = () => {
   const handleSubmitToken = () => {
     try {
       createToken?.();
-      void Swal.fire({
-        title: "Token Created!",
-        text: "You can now go to your dashboard",
-        icon: "success",
-        confirmButtonText: "Ok",
-      });
     } catch (err) {
       console.log(err);
     }
