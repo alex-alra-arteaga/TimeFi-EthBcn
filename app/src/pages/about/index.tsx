@@ -12,11 +12,10 @@ const About: NextPage = () => {
         <div className="container mx-auto px-5 py-24">
         <div className="mb-20 flex w-full flex-col flex-wrap items-center text-center">
         <h1 className="title-font mb-2 text-2xl font-medium text-gray-900 sm:text-3xl dark:text-white">
-              Puntos claves de TimeFi
+              TimeFi&apos; Main Points
             </h1>
             <p className="w-full leading-relaxed text-black text-opacity-80 lg:w-1/2 dark:text-gray-300">
-              Descubre en que nos diferenciamos de otras plataformas y que valor
-              agregado te ofrecemos.
+            Discover how we differ from other platforms and what added value we offer you.
             </p>
           </div>
           <div className="-m-4 flex flex-wrap">
@@ -36,14 +35,10 @@ const About: NextPage = () => {
                   </svg>
                 </div>
                 <h2 className="title-font mb-2 text-lg font-medium text-black dark:text-white">
-                  ERC20 representando tu tiempo
+                  ERC20 representing your time
                 </h2>
                 <p className="text-base leading-relaxed text-dark dark:text-white">
-                  En TimeFi, tu tiempo se convierte en un activo tangible
-                  mediante la creación de un token ERC20. Este token está
-                  vinculado a las horas que estás dispuesto a ofrecer,
-                  proporcionando un valor numérico y transferible a tus
-                  servicios profesionales.
+                  At TimeFi, your time becomes a tangible asset by creating an ERC20 token. This token is linked to the hours you are willing to offer, providing a numerical and transferable value to your professional services.
                 </p>
               </div>
             </div>
@@ -65,13 +60,10 @@ const About: NextPage = () => {
                   </svg>
                 </div>
                 <h2 className="title-font mb-2 text-lg font-medium  text-black dark:text-white">
-                  Mejora en el Flujo de Efectivo
+                  Cash Flow Improvement
                 </h2>
-                <p className="text-base leading-relaxed dark:text-gray-300 text-black">
-                  Nos enfocamos en solucionar los retrasos en los pagos que
-                  afectan a consultores y profesionales, asegurando un flujo de
-                  efectivo regular y reduciendo el riesgo de impago. No dependas
-                  más de tercero para recibir lo que te pertenece.
+                <p className="text-base leading-relaxed dark:text-white text-black">
+                  We focus on solving payment delays that affect consultants and professionals, ensuring a regular cash flow and reducing the risk of non-payment. Do not depend more on a third party to receive what belongs to you.
                 </p>
               </div>
             </div>
@@ -92,13 +84,10 @@ const About: NextPage = () => {
                   </svg>
                 </div>
                 <h2 className="title-font mb-2 text-lg font-medium  text-black dark:text-white">
-                  Interacción de Fan a Ídolo como nunca antes
+                  Fan to idol interaction like never before
                 </h2>
                 <p className="text-base leading-relaxed dark:text-white text-black">
-                  Abordamos la falta de interacciones significativas en las
-                  redes sociales, solucionamos problemas en la programación y
-                  flujo de efectivo en consultas profesionales, y promovemos un
-                  intercambio personalizado de conocimientos y experiencia.
+                We address the lack of meaningful interactions on social media, troubleshoot scheduling and cash flow in professional consultations, and promote a personalized exchange of knowledge and expertise.
                 </p>
               </div>
             </div>
@@ -118,12 +107,10 @@ const About: NextPage = () => {
                   </svg>
                 </div>
                 <h2 className="title-font mb-2 text-lg font-medium dark:text-white text-dark">
-                  Ponemos fin a la programación Ineficiente
+                  We put an end to inefficient time scheduling
                 </h2>
-                <p className="text-base leading-relaxed dark:text-gray-300 text-dark">
-                  Atacamos la falta de transparencia y las complicaciones en la
-                  programación actual, facilitando la reserva de horarios para
-                  clientes y la gestión de cancelaciones para consultores.
+                <p className="text-base leading-relaxed dark:text-white text-dark">
+                We attack the lack of transparency and complications in the current schedule, facilitating the reservation of times for clients and the management of cancellations for consultants.
                 </p>
               </div>
             </div>
@@ -143,12 +130,12 @@ const About: NextPage = () => {
                   </svg>
                 </div>
                 <h2 className="title-font mb-2 text-lg font-medium dark:text-white text-dark">
-                  Tecnología sofisticada, experiencia sin complicaciones
+                  Sophisticated technology, hassle-free experience
                 </h2>
-                <p className="text-base leading-relaxed dark:text-gray-300 text-dark">
-                  Utilizamos tecnología sofisticada, todo mientras mantenemos la
-                  experiencia del usuario simple y libre de preocupaciones
-                  técnicas.
+                <p className="text-base leading-relaxed dark:text-white text-dark">
+                  We use sophisticated technology, all while maintaining the
+                  simple and worry free user experience
+                  techniques.
                 </p>
               </div>
             </div>
@@ -168,17 +155,15 @@ const About: NextPage = () => {
                   </svg>
                 </div>
                 <h2 className="title-font mb-2 text-lg font-mediumdark:text-white text-black dark:text-white">
-                  Compensación justa
+                  Fair compensation
                 </h2>
-                <p className="text-base leading-relaxed dark:text-gray-300 text-dark">
-                  Nos enfocamos en asegurar una compensación justa para
-                  consultores altamente solicitados, reflejando su verdadero
-                  valor de mercado y evitando la insatisfacción profesional.
+                <p className="text-base leading-relaxed dark:text-white text-dark">
+                We focus on ensuring fair compensation for highly sought-after consultants, reflecting their true market value and avoiding career dissatisfaction.
                 </p>
               </div>
             </div>
             <button className="mx-auto mt-16 flex rounded border-0 bg-blue-500 px-8 py-2 text-lg text-white hover:bg-blue-600 dark:bg-gray-800 dark:hover:bg-gray-700 focus:outline-none" onClick={async () => {await router.push("/")}}>
-              Volver a la página principal
+              Return to main page
             </button>
           </div>
         </div>

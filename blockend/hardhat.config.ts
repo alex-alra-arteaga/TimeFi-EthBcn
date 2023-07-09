@@ -38,17 +38,29 @@ const config: HardhatUserConfig = {
     ],
   },
   networks: {
+     apothem: {
+      url: "https://erpc.apothem.network",
+      accounts: [PRIVATE_KEY]
+    },
     hardhat: {
       chainId: 31337,
     },
-    xdc: {
-      chainId: 50,
-      url: "https://rpc.xinfin.network",
+    gnosis: {
+      url: "https://rpc.gnosischain.com",
       accounts: [PRIVATE_KEY],
     },
-    apothem: {
-      chainId: 51,
-      url: "https://rpc.apothem.network",
+    chiado: {
+      url: "https://rpc.chiadochain.net",
+      gasPrice: 1000000000,
+      accounts: [PRIVATE_KEY],
+    },
+    scrollAlpha: {
+      url: "https://alpha-rpc.scroll.io/l2" || "",
+      accounts: [PRIVATE_KEY],
+    },
+    xdc: {
+      chainId: 50,
+      url: "https://erpc.xinfin.network",
       accounts: [PRIVATE_KEY],
     },
     sepolia: {

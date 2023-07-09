@@ -8,7 +8,6 @@ import {
   AiFillInstagram,
 } from "react-icons/ai";
 import { Button, Text, Input } from "@nextui-org/react";
-import { Progress } from "@nextui-org/react";
 import { SendButton } from "../components/icons/SendButton";
 import { SendIcon } from "../components/icons/SendIcon";
 import Image from "next/image";
@@ -38,7 +37,6 @@ export interface LiveDataProps {
 
 export const CardData: React.FC<LiveDataProps> = (props) => {
   const { id, deadlineDate, name, age, description, industry, goal, image, deadline, linkedInUrl, twitterUrl, instagramUrl, youtubeUrl} = props;
-  const isBrowser = typeof window !== "undefined";
   const [toggle, setToggle] = useState(false);
   const elementRef = useRef(null);
 
@@ -254,7 +252,7 @@ export const CardData: React.FC<LiveDataProps> = (props) => {
                 </Text>
               </div>
             </div>
-            <a target="_blank" className="flex justify-center align-center mt-4"   href={`https://analytics.xspswap.finance/pair/${tokenAddress[Number(id)]!}`}>
+            <a target="_blank" className="flex justify-center align-center mt-4" href={`https://analytics.xspswap.finance/pair/${tokenAddress[Number(id)]!}`}>
               <Button >See Token</Button>
             </a>
           </div>

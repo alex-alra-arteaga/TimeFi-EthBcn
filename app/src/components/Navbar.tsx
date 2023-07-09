@@ -15,10 +15,10 @@ interface navItem {
 }
 
 const navigation: navItem[] = [
-  { name: "Crear cuenta", href: "/create-token", current: false },
-  { name: "Busca consultores", href: "/list", current: false },
+  { name: "Set Up Account", href: "/create-token", current: false },
+  { name: "Search Consultants", href: "/list", current: false },
   { name: "Dashboard", href: "/dashboard", current: false },
-  { name: "Sobre nosotros", href: "/about", current: false },
+  { name: "About us", href: "/about", current: false },
   // Add as many as you like
 ];
 

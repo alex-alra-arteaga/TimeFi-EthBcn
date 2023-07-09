@@ -25,29 +25,29 @@ export default function Hero() {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center">
             <div className="text-shadow relative rounded-full border-white px-3 py-1 text-lg leading-6 text-gray-800 dark:text-gray-200 ring-1 ring-gray-200/10 hover:ring-gray-200/50">
-              Haz que tus segundos cuenten | {" "}
+            Make your seconds worth | {" "}
               <Link
-                href="/characterElecting"
+                href="/about"
                 className="text-shadow font-semibold text-cyan-500 underline"
               >
                 <span
                   className="absolute inset-0 text-fuchsia-50"
                   aria-hidden="true"
                 />
-                Descubre los beneficios <span aria-hidden="true">&rarr;</span>
+                Discover the benefits <span aria-hidden="true">&rarr;</span>
               </Link>
             </div>
           </div>
           <div className="text-center ">
             <h1 className="text-shadow text-4xl font-bold tracking-tight dark:text-gray-100 sm:text-6xl text-gray-800">
-              Tokeniza tu tiempo
+              Tokenize your time
             </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-400">
-            TimeFi revoluciona la forma en que percibimos y utilizamos el tiempo convirtiéndolo en un activo intercambiable. Con nuestra plataforma innovadora, puedes tokenizar tus horas e intercambiarlas por encuentros valiosos como consultas, experiencias de fandom y más. Redefinimos los límites de la comunicación personal y profesional transformando el tiempo en un activo intercambiable.
+            <p className="mt-6 text-lg leading-7 text-gray-400">
+            Tokenize your hours for valuable exchanges, reshaping how we communicate and interact professionally and personally.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
               <Link
-                href="/characterElecting"
+                href="/create-token"
                 className="rounded-md bg-cyan-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-cyan-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Create your account

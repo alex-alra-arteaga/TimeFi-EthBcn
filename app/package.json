@@ -51,6 +51,7 @@
     "recharts": "^2.7.2",
     "siwe": "^2.1.4",
     "superjson": "1.12.3",
+    "sweetalert2": "^11.7.12",
     "tailwind-merge": "^1.13.1",
     "tailwindcss-animate": "^1.0.6",
     "viem": "^0.3.50",

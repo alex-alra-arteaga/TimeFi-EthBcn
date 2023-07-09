@@ -11,23 +11,13 @@ const testnetRouter = "0x3F11A24EB45d3c3737365b97A996949dA6c2EdDf";
 const mainnetFactory = "0x347D14b13a68457186b2450bb2a6c2Fd7B38352f";
 const mainnetRouter = "0xf9c5E4f6E627201aB2d6FB6391239738Cf4bDcf9";
 
-const provider = new ethers.providers.JsonRpcProvider("https://rpc.apothem.network/");
+const provider = new ethers.providers.JsonRpcProvider("https://erpc.xinfin.network/");
 
 async function main() {
-  const options = { gasLimit: 40000000, gasPrice: ethers.utils.parseUnits('50', 'gwei') };
+  const options = { gasLimit: 400000000, gasPrice: ethers.utils.parseUnits('5', 'gwei') };
   // Dalex
   const ACCOUNT_1 = new ethers.Wallet(PRIVATE_KEY, provider);
 
-  const tmpxSwapFactoryFactoryFactory = (await ethers.getContractFactory(
-    "UniswapV2Factory",
-  )) as UniswapV2Factory__factory;
-
-  const xSwapV2Factory = await tmpxSwapFactoryFactoryFactory.deploy(
-    ACCOUNT_1.address, options
-  );
-  console.log("UniswapV2Factory deployed to:", xSwapV2Factory.address);
-  // Mainnet
-  await xSwapV2Factory.deployed();
   const tmpTimeFiTokenFactory = (await ethers.getContractFactory(
       "TimeFiToken",
   )) as TimeFiToken__factory;
@@ -40,7 +30,7 @@ async function main() {
   )) as TimeFiIssuerAccount__factory;
 
   // Implementation for TimeFiIssuerAccountFactory
-  const timeFiIssuerAccount = await tmpTimeFiIssuerAccountFactory.deploy(options);
+  const timeFiIssuerAccount = await tmpTimeFiIssuerAccountFactory.connect(ACCOUNT_1).deploy(options);
   console.log("TimeFiIssuerAccount deployed to:", timeFiIssuerAccount.address);
   await timeFiIssuerAccount.deployed();
   const tmpTimeFiTokenFactoryFactory = (await ethers.getContractFactory(
@@ -62,17 +52,16 @@ async function main() {
       "TimeFiCore",
   )) as TimeFiCore__factory;
 
-  const timeFiCore = await tmpTimeFiCoreFactory.deploy(xSwapV2Factory.address, testnetRouter, testnetWXDC, timeFiTokenFactory.address, timeFiIssuerAccountFactory.address, options);
+  const timeFiCore = await tmpTimeFiCoreFactory.deploy(mainnetFactory, mainnetRouter, mainnetWXDC, timeFiTokenFactory.address, timeFiIssuerAccountFactory.address, options);
   await timeFiCore.deployed();
 
-  //const tx = await
+  await timeFiIssuerAccount.connect(ACCOUNT_1).setFactoryAndCore(timeFiTokenFactory.address, timeFiCore.address, options);
 
   console.log("TimeFiCore deployed to:", timeFiCore.address);
   console.log("TimeFiToken deployed to:", timeFiToken.address);
   console.log("TimeFiIssuerAccount deployed to:", timeFiIssuerAccount.address);
   console.log("TimeFiTokenFactory deployed to:", timeFiTokenFactory.address);
   console.log("TimeFiIssuerAccountFactory deployed to:", timeFiIssuerAccountFactory.address);
-  console.log("UniswapV2Factory deployed to:", xSwapV2Factory.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

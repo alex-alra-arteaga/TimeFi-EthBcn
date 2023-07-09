@@ -42,7 +42,7 @@ async function TimeFiFixture() {
   const timeFiIssuerAccount = await tmpTimeFiIssuerAccountFactory.deploy();
 
   const tmpTimeFiTokenFactoryFactory = (await ethers.getContractFactory(
-      "TimeFi__TokenFactory", ownergit
+      "TimeFi__TokenFactory", owner
   )) as TimeFiTokenFactory__factory;
 
   const timeFiTokenFactory = await tmpTimeFiTokenFactoryFactory.deploy(timeFiToken.address);
